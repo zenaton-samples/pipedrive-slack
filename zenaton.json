@@ -1,0 +1,19 @@
+{
+  "name": "AddDealCRM",
+  "description": "Add a new to Pipedrive and send a slack message",
+  "logo": "",
+  "workflowName": "PipedriveToSlack",
+  "connectors": ["slack", "pipedrive"],
+  "onlineEditor": {
+    "input": [
+    {
+      "name": "John",
+      "email": "john@gmail.com",
+      "companyName": "John's company",
+      "due_date": "2019-12-12",
+      "due_time": "09:00"
+    }
+    ],
+    "events": []
+  }
+}
