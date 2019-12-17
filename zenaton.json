@@ -1,5 +1,5 @@
 {
-  "name": "AddDealCRM",
+  "name": "Pipedrive to Slack",
   "description": "Add a deal to Pipedrive and send internal communications via Slack",
   "logo": "",
   "workflowName": "PipedriveToSlack",
