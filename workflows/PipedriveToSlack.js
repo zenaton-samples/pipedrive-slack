@@ -1,108 +1,53 @@
-const pipedriveConnectorId = "<ENTER_YOUR_ZENATON_PIPEDRIVE_CONNECTOR_ID>";
-const slackConnectorId = "<ENTER_YOUR_ZENATON_SLACK_CONNECTOR_ID>";
-const slackChannel = "<ENTER_SLACK_CHANNEL_ID>";
+const { duration } = require("zenaton");
 
-let pipedrive = null;
-let slack = null;
+module.exports.handle = function*({ name, email, org_name }) {
+  const slackChannel = process.env.SLACK_CHANNEL || "@yannis";
 
-module.exports.handle = function*(user) {
-  pipedrive = this.connector("pipedrive", pipedriveConnectorId);
-  slack = this.connector("slack", slackConnectorId);
+  // Search for the organization in pipedrive
+  let organization = yield this.run.task("FindOrganizationByName", org_name);
+  if (!organization) {
+    // Create the organization if it doesn't exist
+    organization = yield this.run.task("CreateOrganization", user.org_name);
+  }
 
-  let person = yield* findOneByEmail(user.email);
-
-  if (person === null) {
-    // Create a person on pipedrive
-    person = yield* createPerson(user);
-
-    // Create an organization and link it to the person created before
-    const organization = yield* createOrganization(user.companyName, person);
+  // Search for the person in pipedrive
+  let person = yield this.run.task("FindPersonByEmail", email);
+  if (!person) {
+    // Create the person if it doesn't exist and link it to the organization
+    person = yield this.run.task("CreatePerson", { name, email }, organization);
 
     // Create a deal and add the organization and person in charge in it
-    yield* createDeal(person, organization);
+    yield this.run.task("CreateDeal", organization, person);
 
     // Send a slack message warning the internal team of a new lead
-    yield* sendSlack(
+    yield this.run.task(
+      "PostMessage",
       slackChannel,
-      `A new user has signed-up: ${user.email} ${user.name} working at ${user.companyName}`
+      `A new user has signed-up: ${person.email} ${person.name} working at ${person.org_name}`
     );
   } else {
-    // Create a deal and add the organization and person in charge in it
-    const deal = yield* createDeal(person, person.org_name);
-
-    // Add a note
-    yield* addNote(person, deal);
-
-    // Send a slack message warning the internal team of a new lead
-    yield* sendSlack(
+    // Send a slack message warning the internal team of lead signup
+    yield this.run.task(
+      "PostMessage",
       slackChannel,
-      `An existing user you already know has signed-up: ${user.email} ${user.name}: congrats! :) `
+      `A known lead has signed-up: ${person.email} ${person.name}: congrats! :) `
     );
   }
 
-  // Wait for 5 seconds
-  yield this.wait.for(5);
+  // Add a note
+  yield this.run.task(
+    "AddNote",
+    person,
+    "This user has registered to the platform."
+  );
+
+  // Wait 2 days
+  yield this.wait.for(duration.days(2));
 
   // Send a follow-up slack message to the SDR
-  yield* sendSlack(
+  yield this.run.task(
+    "PostMessage",
     slackChannel,
-    `Following his registration, the user ${user.email} needs to be contacted again`
+    `The lead ${person.email} signed up 2 days ago. Did you contact him?`
   );
 };
-
-function* createPerson(user) {
-  return (yield pipedrive.post("/persons", {
-    body: {
-      name: user.name,
-      email: user.email
-    }
-  })).data.data;
-}
-
-function* createOrganization(name, person) {
-  return (yield pipedrive.post("/organizations", {
-    body: {
-      name: name,
-      owner_id: person.id
-    }
-  })).data.data;
-}
-
-function* createDeal(person, organization) {
-  return (yield pipedrive.post("/deals", {
-    body: {
-      title: `${organization.name}'s Deal`,
-      person_id: person.id,
-      org_id: organization.id
-    }
-  })).data.data;
-}
-
-function* sendSlack(channel, text) {
-  return yield slack.post("chat.postMessage", {
-    body: {
-      text,
-      as_user: false,
-      channel
-    }
-  });
-}
-
-function* findOneByEmail(email) {
-  return (yield pipedrive.get("/persons/find", {
-    query: {
-      term: email,
-      search_by_email: true
-    }
-  })).data.data[0];
-}
-
-function* addNote(user, deal) {
-  return yield pipedrive.post("/notes", {
-    body: {
-      content: "This user has registered to the platform",
-      user_id: user.id,
-      deal_id: deal.id
-    }
-  });
-}
