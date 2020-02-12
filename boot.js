@@ -1,3 +1,7 @@
+
+// load .env
+require('dotenv').config();
+
 // load dependencies
 const { workflow, task } = require('zenaton');
 
@@ -11,4 +15,4 @@ task("CreatePerson", require("./tasks/createPerson"));
 task("PostMessage", require("./tasks/postMessage"));
 
 // define workflows
-workflow("PipedriveToSlack", require("./workflows/pipedriveToSlack"));
+workflow("PipedriveSync", require("./workflows/PipedriveSync"));

@@ -1,11 +1,9 @@
-const slack = require("../clients/slack");
+const axios = require("axios");
 
-module.exports.handle = async (channel, text) => {
+module.exports.handle = async text => {
   return (
-    await slack.post("/chat.postMessage", {
-      text,
-      channel,
-      as_user: false
+    await axios.post(process.env.SLACK_INCOMING_WEBHOOK, {
+      text
     })
   ).data;
 };

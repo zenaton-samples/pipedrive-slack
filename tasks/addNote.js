@@ -5,7 +5,7 @@ module.exports.handle = async (person, content) => {
     await pipedrive.post("/notes", {
       content: content,
       person_id: person.id,
-      org_id: person.org_id
+      org_id: person.org_id.value || person.org_id
     })
   ).data.data;
 };

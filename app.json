@@ -30,6 +30,14 @@
       "description": "The Zenaton Agent listen args",
       "value": "--boot=boot.js --node",
       "required": true
+    },
+    "PIPEDRIVE_API_TOKEN": {
+      "description": "Pipedrive API token",
+      "required": true
+    },
+    "SLACK_INCOMING_WEBHOOK": {
+      "description": "Slack incoming webhook",
+      "required": true
     }
   },
   "formation": {
