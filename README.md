@@ -26,7 +26,7 @@ Pipedrive account and get an API token [here](https://zenaton.pipedrive.com/sett
 
 ### Starting the workflow
 
-You can dispatch tasks and workflows by name from everywhere using [Zenaton API](https://docs.zenaton.com/client/graphql-api/).
+You can dispatch the workflows by name from within your application using [Zenaton API](https://docs.zenaton.com/client/graphql-api/).
 They will be processed as soon as you run this project.
 
 > Note: tasks and workflows are dispatched in an environment (`AppEnv`) of your Zenaton application (`AppId`).
