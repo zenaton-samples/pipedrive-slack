@@ -1,4 +1,4 @@
-# New user synchronization with Pipedrive (CRM) 
+# New user synch with Pipedrive (CRM) and Slack
 
 This is an example of Zenaton project showcasing how you could synchronize your own backend and pipedrive (sales CRM).
 
@@ -29,8 +29,8 @@ Pipedrive account and get an API token [here](https://zenaton.pipedrive.com/sett
 You can dispatch the workflows by name from within your application using [Zenaton API](https://docs.zenaton.com/client/graphql-api/).
 They will be processed as soon as you run this project.
 
-> Note: tasks and workflows are dispatched in an environment (`AppEnv`) of your Zenaton application (`AppId`).
-> They will be processed by this project, **if** you setup it with the same `AppId` and `AppEnv`. You must also provide an `Api Token`
+> Note: Workflows are dispatched in an environment (`AppEnv`) of your Zenaton application (`AppId`).
+> They will be processed by this project, **if** you set it up with the same `AppId` and `AppEnv`. You must also provide an `Api Token`
 > to authorize access to this application (found at https://app.zenaton.com/api)
 
 ### Run Locally
