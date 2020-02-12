@@ -1,4 +1,4 @@
-# Zenaton Samples - Pipedrive Synchronisation
+# Zenaton Samples - Pipedrive Synchronization
 
 This is an example of Zenaton project showcasing how you could synchronize your own backend and pipedrive (sales CRM).
 
