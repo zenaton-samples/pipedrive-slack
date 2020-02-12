@@ -1,0 +1,13 @@
+{
+  "name": "pipedrive-slack",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:zenaton-samples/pipedrive-slack.git",
+  "author": "Yannis Weishaupt <yannis.weishaupt@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
+    "zenaton": "^0.8.0"
+  }
+}
