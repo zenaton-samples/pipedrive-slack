@@ -13,7 +13,7 @@ Look at Zenaton documentation to learn how to implement [workflows](https://docs
 ## Run
 
 ### Requirements
-A [Zenaton] (https://app.zenaton.com/workflows) account.  
+A [Zenaton](https://app.zenaton.com/workflows) account.  
 
 This example project uses Pipedrive API to sync your user data and Slack API to send a notification.
 
