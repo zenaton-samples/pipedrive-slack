@@ -53,6 +53,9 @@ and run it:
 ```sh
 zenaton listen --boot=boot.js
 ```
+### Run on Heroku
+
+Follow this button [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy), then fill in the env variables and click "deploy".
 
 ### Run in Docker
 
@@ -70,11 +73,7 @@ Then start your container:
 cd docker && docker-compose up
 ```
 
-### Run on Heroku
-
-Follow this button [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy), then fill in the env variables and click "deploy".
-
-### Run somewhere else
+### Run on your hosting solution
 
 Check our [documentation](https://docs.zenaton.com/going-to-production/) for more options (AWS, Google Cloud, Clever Cloud ...)
 
@@ -87,7 +86,7 @@ see it, please check again that you have selected the right application and envi
 
 ### Using Zenaton API
 
-Tasks and workflows can be dispatched by name from everywhere using the [Zenaton API](https://docs.zenaton.com/client/graphql-api/) or our [Node.js SDK](https://github.com/zenaton/zenaton-node).
+The workflows can be dispatched by name from within your application using the [Zenaton API](https://docs.zenaton.com/client/graphql-api/) or our [Node.js SDK](https://github.com/zenaton/zenaton-node).
 
 You can test it from your command line interface:
 
@@ -103,6 +102,6 @@ curl --request POST \
 
 > Do not forget to replace `<APP_ID>` and `<API_TOKEN>` by your Zenaton AppId and api token.
 
-## Monitoring Tasks and Worklows Processing
+## Workflow Processing
 
-Look at your [dashboard](https://app.zenaton.com/workflows) (if you do not see your dispatched tasks or workflows, please check that you have selected the right application and environment).
+Check your Zenaton [dashboard](https://app.zenaton.com/workflows) (if you do not see your dispatched tasks or workflows, please check that you have selected the right application and environment).
