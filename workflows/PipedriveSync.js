@@ -14,19 +14,19 @@ module.exports.handle = function*({ name, email, org_name }) {
     // Create the person if it doesn't exist and link it to the organization
     person = yield this.run.task("CreatePerson", { name, email }, organization);
 
-    // Create a deal and add the organization and person in charge in it
+    // Create a deal and add the organization and assign a person to follow up
     yield this.run.task("CreateDeal", organization, person);
 
-    // Send a slack message warning the internal team of a new lead
+    // Send a slack message notifiying the team of a new lead
     yield this.run.task(
       "PostMessage",
       `A new user has signed-up: ${person.email[0].value} ${person.name} working at ${person.org_name}`
     );
   } else {
-    // Send a slack message warning the internal team of lead signup
+    // Send a slack message notifying team that an existing lead has signed up
     yield this.run.task(
       "PostMessage",
-      `A known lead has signed-up: ${person.email} ${person.name}: congrats! :) `
+      `An existing lead has signed-up: ${person.email} ${person.name}: congrats! :) `
     );
   }
 
@@ -43,6 +43,6 @@ module.exports.handle = function*({ name, email, org_name }) {
   // Send a follow-up slack message to the SDR
   yield this.run.task(
     "PostMessage",
-    `The lead ${person.name} signed up 2 days ago. Did you contact him?`
+    `The lead ${person.name} signed up 2 days ago. Did you contact them?`
   );
 };
