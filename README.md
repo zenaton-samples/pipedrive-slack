@@ -1,6 +1,6 @@
 # New user synch with Pipedrive (CRM) and Slack
 
-This is an example of Zenaton project showcasing how you could synchronize your own backend and pipedrive (sales CRM).
+A workflow that updates Pipedrive (CRM) when a new user signs up and notifies the internal team via slack. If the user is an existing lead info is updated in Pipedrive, otherwise a new deal is created and a reminder sent to the team 2 days later to follow up.
 
 ## Development
 
