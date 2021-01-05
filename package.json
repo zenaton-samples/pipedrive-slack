@@ -6,7 +6,7 @@
   "author": "Yannis Weishaupt <yannis.weishaupt@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "zenaton": "^0.8.0"
   }
